@@ -5,14 +5,14 @@ const notifier = require('node-notifier');
 var nodemailer = require('nodemailer');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
+const env = require('./env');
+
 const {
   EMAIL,
   REFRESH_TOKEN,
   CLIENT_SECRET,
   CLIENT_ID
-} = require('./env');
-
-
+} = env;
 
 
 const createTransporter = async () => {
@@ -53,22 +53,23 @@ const createTransporter = async () => {
 
 
 const DISTRICTS = {
-  PANCHKULA: 187,
-  CHANDIGARH: 108,
+  // PANCHKULA: 187,
+  // CHANDIGARH: 108,
+  KARNAL: 203,
  };
 
 const reces =  {
   [DISTRICTS.PANCHKULA]: [
-    'amritsingh183@gmail.com',
   ],
   [DISTRICTS.CHANDIGARH]: [
-    'amritsingh183@gmail.com',
+  ],
+  [DISTRICTS.KARNAL]: [
   ],
 }
 
 const centerIdFilter = {
-  [DISTRICTS.PANCHKULA]: [13364, 1030],
-  [DISTRICTS.CHANDIGARH]: []
+  // [DISTRICTS.PANCHKULA]: [13364, 1030],
+  // [DISTRICTS.CHANDIGARH]: []
 }
 
 const doMail = async ({mailOptions}) => {
@@ -76,6 +77,7 @@ const doMail = async ({mailOptions}) => {
   return new Promise((resolve,reject)=>{
     emailTransporter.sendMail(mailOptions, function(error, info){
     if (error) {
+      console.log(error);
       reject(error);
     } else {
       resolve();
@@ -91,9 +93,11 @@ const sendMail = async (districtId, list)=> {
    s+= "</li>";
    return s;
  })
+ const toList = [...reces[districtId]];
+ toList.push(EMAIL);
  var mailOptions = {
    from: EMAIL,
-   to: reces[districtId].push(EMAIL).join(','),
+   to: toList.join(','),
    subject: `${list.length} Cowin Slots Available`,
    html: `<h1> Slot List <h2> </br><ul>${listHtml.join('')}</ul>`,
  };
@@ -101,7 +105,7 @@ const sendMail = async (districtId, list)=> {
    await doMail({mailOptions})
  }
  catch(e) {
-console.log(e);
+  console.log(e);
  }
 }
 
@@ -139,7 +143,7 @@ const parseDataAndAccumulate = (districtId, data) => {
     centerList = centerIdFilter[districtId]
   }
   data.centers.filter(({ center_id}) => {
-    if(centerList.length) {
+    if(centerList && centerList.length) {
       return centerList.indexOf(center_id) !== -1;
     }
     return true

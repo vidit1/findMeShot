@@ -1,0 +1,28 @@
+{
+  "name": "find-me-shot",
+  "version": "1.0.0",
+  "description": "Find slots for vaccination",
+  "main": "index.js",
+  "dependencies": {
+    "delay": "5.0.0",
+    "googleapis": "73.0.0",
+    "node-notifier": "9.0.1",
+    "moment": "2.29.1",
+    "node-fetch": "2.6.1",
+    "nodemailer": "6.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://vidit1@github.com/vidit1/findMeShot.git"
+  },
+  "author": "viditgupta.vg@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vidit1/findMeShot/issues"
+  },
+  "homepage": "https://github.com/vidit1/findMeShot#readme"
+}
