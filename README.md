@@ -18,9 +18,10 @@ const env =  {
   CLIENT_SECRET,
   CLIENT_ID,
 };
-return env;
+module.exports = env;
 ```
-Use google console to get all the tokens and secrets
+Use google console to get all the tokens and secrets 
+Steps to follow (https://dev.to/chandrapantachhetri/sending-emails-securely-using-node-js-nodemailer-smtp-gmail-and-oauth2-g3a#:~:text=Start%20by%20visiting%20https%3A%2F%2F,mail.google.com%2F.)
 
 How to configure and help friends
 ```
